@@ -7,7 +7,7 @@ def add_student():
     branch=input("Enter your branch: ")
     cgpa=float(input("Enter your CGPA:"))
     email=input("Enter your Email Id:")
-    query="insert into student values(%s,%s,%s,%s)"
+    query="insert into student(Name,Branch,CGPA,Email_id) values(%s,%s,%s,%s)"
     values=(name,branch,cgpa,email)
     cur.execute(query,values)
     con.commit()
@@ -20,7 +20,13 @@ def view_student():
     cur.execute("select*from student")
     data=cur.fetchall()
     for i in data:
-       print(i)
+        print("Student ID :", i[0])
+        print("Name :", i[1])
+        print("Branch :", i[2])
+        print("CGPA :", float(i[3]))
+        print("Email :", i[4])
+        print("="*30)
+       
 
 def update_student():
     con=connect_db()

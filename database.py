@@ -5,9 +5,10 @@ def connect_db():
         host="localhost",
         user="root",
         password="root@123",
-        database="placement_db"
+        database="placementdb"
     )
 
-    print("Student Added Successfully!")
+    return conn
+
 
     

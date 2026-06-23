@@ -8,8 +8,8 @@ def add_company():
     min_cgpa=float(input("Enter Minimum CGPA: "))
     location=input("Enter Location of Company: ")
 
-    query="insert into company values(%s,%s,%s,%s)"
-    values=(query,(company_name,package,min_cgpa,location))
+    query="insert into company(Company_Name,Company_Package,Min_CGPA,Location) values(%s,%s,%s,%s)"
+    values=(company_name,package,min_cgpa,location)
     cur.execute(query,values)
     con.commit()
     print("Company Details added successfully!")
@@ -21,11 +21,17 @@ def view_company():
     cur.execute("select*from company")
     data=cur.fetchall()
     for i in data:
-        print(i)
+        print("Company ID :", i[0])
+        print("Company Name :", i[1])
+        print("Company Package :", float(i[2]))
+        print("Minimum CGPA :", float(i[3]))
+        print("Location :", i[4])
+        print("="*30)
+    con.close()
 def update_company():
     con=connect_db()
     cur=con.cursor()
-    c_id=int("Enter Company Id: ")
+    c_id=int(input("Enter Company Id: "))
     print("1. Update Name")
     print("2. Update Package")
     print("3. Update minimum CGPA requirement")
@@ -40,7 +46,7 @@ def update_company():
     elif ch==2:
         new_package=float(input("Enter Package:"))
         query="update company set Company_Package=%s where Company_id=%s"
-        cur.execute(query(new_package,c_id))
+        cur.execute(query,(new_package,c_id))
     elif ch==3:
         new_min_cgpa=float(input("Enter the minimum CGPA: "))
         query="update company set Min_CGPA=%s where Company_id=%s"
